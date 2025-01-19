@@ -1,28 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import auth from '$lib/utils/authService'
   import { isAuthenticated, user, user_tasks, tasks } from '$lib/stores/store'
   import TaskItem from '@components/TaskItem.svelte'
-  import type { Auth0Client } from '@auth0/auth0-spa-js'
   import type { Task } from '@/lib/utils/interface'
 
-  let auth0Client: Auth0Client
   let newTask: string
-
-  onMount(async () => {
-    auth0Client = await auth.createClient()
-
-    isAuthenticated.set(await auth0Client.isAuthenticated())
-    user.set(await auth0Client.getUser())
-  })
-
-  const login = () => {
-    auth.loginWithPopup(auth0Client)
-  }
-
-  const logout = () => {
-    auth.logout(auth0Client)
-  }
 
   let addItem = () => {
     let newTaskObject = {
@@ -63,18 +44,11 @@
               <li>Create Tasks &#128221;</li>
               <li>Tick off completed tasks &#9989;</li>
             </ul>
-            <a
-              class="btn btn-primary btn-lg mr-auto ml-auto"
-              href="/#"
-              role="button"
-              on:click={login}>Log In</a
-            >
           </div>
         </div>
       </div>
     </div>
   {:else}
-    <button on:click={logout}>Logout</button>
     <div class="container" id="main-application">
       <div class="row">
         <div class="col-md-6">
