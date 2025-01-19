@@ -16,10 +16,12 @@
 
 <style lang="sass">
   @use '../../sass/_variables'
+  @use '../../sass/_animations'
   .nav__search-icon
     width: 3.2rem
     height: 3.2rem
     color: variables.$text-off-black
     cursor: pointer
+    @include animations.translate-hover
     // margin-right: 8px
 </style>

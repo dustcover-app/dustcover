@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state'
   import { isAuthenticated } from '$lib/stores/store'
-  import BookIcon from '@assets/icons/BookIcon.svelte'
+  import PlusIcon from '@assets/icons/PlusIcon.svelte'
 
   export let login: () => void, logout: () => void
 
@@ -48,6 +48,15 @@
         </div>
       {/each}
     </div>
+    <div class="nav__left--small">
+      <div class="nav__item">
+        <a href="/">
+          <div class="nav__logo">
+            <span>dc.</span>
+          </div>
+        </a>
+      </div>
+    </div>
     <div class="nav__right">
       <div class="nav__search-wrapper nav__item">
         <SearchIcon />
@@ -68,7 +77,7 @@
           <div class="nav__profile-icon" on:click={logout}></div>
         </div>
         <div class="nav__item">
-          <button class="nav__button"><BookIcon /><span>Add Book</span></button>
+          <button class="nav__button"><PlusIcon /><span>Add Book</span></button>
         </div>
       {/if}
     </div>
@@ -78,6 +87,7 @@
 <style lang="sass">
   @use '../sass/_variables'
   @use '../sass/_breakpoints'
+  @use '../sass/_animations'
   
   .nav
     position: fixed
@@ -104,7 +114,25 @@
         align-items: center
         gap: variables.$nav-gap
 
+      a
+        text-decoration: none
+        .nav__logo
+          font-family: variables.$font-serif
+          @include animations.translate-hover 
+          span
+            font-size: 2.2rem
+            font-weight: 700
+            color: variables.$text-off-black
+
       .nav__left
+        display: none
+        @include breakpoints.xxl
+          display: flex
+        &--small
+          display: flex
+          @include breakpoints.xxl
+            display: none
+
         & > .nav__item
           position: relative
           height: 60%
@@ -118,19 +146,12 @@
             height: 100%
             content: ''
             border: 1px solid black
-            
-        a
-          text-decoration: none
-          .nav__logo
-            span
-              font-size: 2.2rem
-              font-weight: 700
-              color: variables.$text-off-black
         
         .nav__link
           color: variables.$text-off-black
           text-decoration: none
           font-weight: 400
+          @include animations.translate-hover
           &--active
             color: variables.$text-off-black
       .nav__right
@@ -167,15 +188,19 @@
         .nav__button
           cursor: pointer
           font-family: variables.$font-sans-serif
-          padding: 1.1rem 4rem
+          padding: 1.1rem 3.2rem
           // font-weight: 500
           color: white
+          position: relative
           font-size: 1.4rem
-          border-radius: 100px
+          // border-radius: 100px
           border: none
           background: variables.$text-off-black
           display: inline-flex
           align-items: center
+          overflow: hidden
+          @include animations.translate-shadow-hover
+          
           span
             margin-top: 2px
             line-height: 0.9
