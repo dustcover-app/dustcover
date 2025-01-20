@@ -33,7 +33,7 @@
       <div class="nav__item">
         <a href="/">
           <div class="nav__logo">
-            <span>dc.</span>
+            <span>DC</span>
           </div>
         </a>
       </div>
@@ -64,7 +64,7 @@
       </div>
       {#if !$isAuthenticated}
         <div class="nav__item">
-          <button class="nav__button" on:click={login}>Login</button>
+          <button class="nav__button" on:click={login}>Join</button>
         </div>
       {:else}
         <!-- <div class="nav__item">
@@ -98,6 +98,7 @@
     display: flex
     align-items: center
     justify-content: center
+    background: variables.$bg-paper-texture
 
     .nav__content
       margin: 0 90px
@@ -117,12 +118,12 @@
       a
         text-decoration: none
         .nav__logo
-          font-family: variables.$font-serif
           @include animations.translate-hover 
           span
             font-size: 2.2rem
             font-weight: 700
             color: variables.$text-off-black
+            font-family: variables.$font-title-serif
 
       .nav__left
         display: none

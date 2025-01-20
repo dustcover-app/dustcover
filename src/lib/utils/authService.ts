@@ -4,12 +4,11 @@ import {
   type Auth0ClientOptions,
 } from '@auth0/auth0-spa-js'
 import { user, isAuthenticated, popupOpen } from '$lib/stores/store'
-import config from './auth_config'
 
 const createClient = async () => {
   let auth0Client = await createAuth0Client({
-    domain: config.domain,
-    clientId: config.clientId,
+    domain: import.meta.env.VITE_DOMAIN,
+    clientId: import.meta.env.VITE_CLIENT_ID,
   })
 
   return auth0Client

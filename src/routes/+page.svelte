@@ -1,81 +1,17 @@
 <script lang="ts">
-  import { isAuthenticated, user, user_tasks, tasks } from '$lib/stores/store'
-  import TaskItem from '@components/TaskItem.svelte'
-  import type { Task } from '@/lib/utils/interface'
-
-  let newTask: string
-
-  let addItem = () => {
-    let newTaskObject = {
-      id: genRandom(),
-      description: newTask,
-      completed: false,
-      user: $user!.email,
-    }
-
-    console.log(newTaskObject)
-
-    let updatedTasks: Task[] = [...$tasks, newTaskObject]
-
-    tasks.set(updatedTasks)
-
-    newTask = ''
-  }
-
-  function genRandom(length = 7) {
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    var result = ''
-    for (var i = length; i > 0; --i)
-      result += chars[Math.round(Math.random() * (chars.length - 1))]
-    return result
-  }
+  import { isAuthenticated, user } from '$lib/stores/store'
+  import Hero from '@components/Hero.svelte'
 </script>
 
 <main>
   <!-- Application -->
   {#if !$isAuthenticated}
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-10 offset-md-1">
-          <div class="jumbotron">
-            <p class="lead">Instructions</p>
-            <ul>
-              <li>Login to start &#128272;</li>
-              <li>Create Tasks &#128221;</li>
-              <li>Tick off completed tasks &#9989;</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- <p>Not logged in</p> -->
+    <Hero />
   {:else}
-    <div class="container" id="main-application">
-      <div class="row">
-        <div class="col-md-6">
-          <ul class="list-group">
-            {#each $user_tasks as item (item.id)}
-              <TaskItem task={item} />
-            {/each}
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <input
-            class="form-control"
-            bind:value={newTask}
-            placeholder="Enter New Task"
-          />
-          <br />
-          <button type="button" class="btn btn-primary" on:click={addItem}>
-            Add Task
-          </button>
-        </div>
-      </div>
-    </div>
+    <p>Welcome back, {$user!.name?.split(' ')[0]}!</p>
   {/if}
 </main>
 
 <style>
-  #main-application {
-    margin-top: 50px;
-  }
 </style>
