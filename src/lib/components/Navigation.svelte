@@ -64,7 +64,7 @@
       </div>
       {#if !$isAuthenticated}
         <div class="nav__item">
-          <button class="nav__button" on:click={login}>Join</button>
+          <button class="nav__button" on:click={login}>Sign up</button>
         </div>
       {:else}
         <!-- <div class="nav__item">
@@ -93,12 +93,14 @@
     position: fixed
     top: 0
     left: 0
+    z-index: 999
     width: 100vw
     height: variables.$nav-height
     display: flex
     align-items: center
     justify-content: center
-    background: variables.$bg-paper-texture
+    background-color: white
+    background-image: variables.$bg-paper-texture
 
     .nav__content
       margin: 0 90px
